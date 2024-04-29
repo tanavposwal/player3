@@ -31,3 +31,35 @@ body {
     text-wrap: balance;
   }
 }
+
+.music-player-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgb(83, 83, 83);
+  outline: none;
+  border-radius: 999px;
+}
+
+.music-player-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  animation: marquee 10s linear infinite;
+}
