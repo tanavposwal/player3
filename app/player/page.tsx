@@ -1,15 +1,15 @@
 "use client";
 
+
 import React, { useState, useRef, useEffect } from "react";
-import { FaPlay, FaPause } from "react-icons/fa6";
+import { FaPlay, FaPause, FaForwardStep, FaBackwardStep } from "react-icons/fa6";
 import { ImSpinner5 } from "react-icons/im";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [isReady, setIsReady] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function Home() {
     };
 
     if (audioRef.current) {
+      updateDuration()
       audioRef.current.addEventListener("timeupdate", updateTime);
       audioRef.current.addEventListener("durationchange", updateDuration);
     }
@@ -69,14 +70,15 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col select-none">
       
+      {/* image */}
       <div className="w-screen flex flex-col items-center justify-center my-20">
         <div className="flex relative">
         <img
           src="https://pagalnew.com/coverimages/naina-crew-500-500.jpg"
           alt="naina poster"
-          className="w-72 h-72 rounded-lg absolute blur-3xl"
+          className={"w-72 h-72 absolute transition blur-3xl "+(isPlaying && "animate-pulse")}
         />
         <img
           src="https://pagalnew.com/coverimages/naina-crew-500-500.jpg"
@@ -85,7 +87,7 @@ export default function Home() {
         />
         </div>
         <div className="pt-8 flex flex-col items-center">
-            <span className="text-2xl font-black">Naina</span>
+            <span className="text-3xl bg-gradient-to-b from-white to-stone-700 inline-block text-transparent bg-clip-text font-black">Naina</span>
             <div className="overflow-hidden w-fit px-20">
             <span className="text-sm text-stone-500 marquee">Diljit Dosanjh, Badshah</span>
             </div>
@@ -97,12 +99,13 @@ export default function Home() {
         {isReady ? (
           <div>
             <div className="w-screen flex flex-col items-center gap-8">
-              <div className="scroller w-full max-w-xl flex gap-3 px-4 mt-4">
+              <div className="scroller w-full max-w-xl flex flex-col gap-1 px-4">
                 <div className="text-sm text-stone-500 font-semibold flex w-fit">
                   <span>{formatTime(currentTime)}</span> /{" "}
                   <span>{formatTime(totalDuration)}</span>
                 </div>
 
+                <div>
                 <input
                   type="range"
                   min="0"
@@ -110,19 +113,14 @@ export default function Home() {
                   step="1"
                   value={currentTime}
                   onChange={handleTimeChange}
-                  className="my-2 ml-2 music-player-range"
+                  className="my-1 music-player-range"
                   disabled={!isReady}
                 />
+                </div>
               </div>
 
               <div className="flex items-center justify-center gap-16">
-              <button className="text-lg hover:text-stone-300" onClick={() => {
-                if (currentTime > 11) {
-                setCurrentTime(currentTime-10)
-                } else {
-                    setCurrentTime(0)
-                }
-              }}>-10</button>
+                <button className="text-2xl hover:text-stone-500 transition-colors"><FaBackwardStep /></button>
                 <button
                   onClick={togglePlay}
                   className="text-4xl hover:scale-110 transition-transform cursor-pointer active:scale-90 active:text-stone-600"
@@ -130,9 +128,7 @@ export default function Home() {
                 >
                   {isPlaying ? <FaPause /> : <FaPlay />}
                 </button>
-                <button className="text-lg hover:text-stone-300"  onClick={() => {
-                setCurrentTime(currentTime+10)
-              }}>+10</button>
+                <button className="text-2xl hover:text-stone-500 transition-colors"><FaForwardStep /></button>
               </div>
             </div>
           </div>
@@ -145,8 +141,8 @@ export default function Home() {
         )}
       </div>
       
-      <audio ref={audioRef} onLoadedData={handleCanPlayThrough}>
-        <source src="http://pagalnew.com/download128/45972.mp3" />
+      <audio ref={audioRef} preload="auto" onLoadedData={handleCanPlayThrough}>
+        <source src="https://pagalfree.com/musics/128-Naina - Crew 128 Kbps.mp3" type="audio/mpeg" />
       </audio>
     </div>
   );
