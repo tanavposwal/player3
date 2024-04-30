@@ -13,6 +13,7 @@ export default async function Home() {
       <div className="grid gap-2 grid-cols-3 sm:grid-cols-5 md:grid-cols-7 px-4 sm:px-16">
         {data?.map((music) => (
           <MusicCard
+            key={music.id}
             poster={
               music.poster
             }
