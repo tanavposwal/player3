@@ -111,7 +111,7 @@ export default function Player() {
         </div>
         
         <audio ref={audioRef} autoPlay title="Radio Mirchi">
-          <source src="http://peridot.streamguys.com:7150/Mirchi" type="audio/mpeg" />
+          <source src="http://peridot.streamguys.com:7150/Mirchi" />
         </audio>
       </div>
     );
