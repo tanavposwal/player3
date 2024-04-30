@@ -1,4 +1,5 @@
 import MusicCard from "@/components/MusicCard";
+import RadioCard from "@/components/RadioCard";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {
@@ -6,11 +7,12 @@ export default async function Home() {
   const { data } = await supabase.from("musics").select("*");
 
   return (
-    <main>
+    <main className="px-4 sm:px-16">
       <div className="w-full py-4 text-center mb-6">
-        <h1 className="text-3xl bg-gradient-to-b from-green-300 to-green-700 inline-block text-transparent bg-clip-text font-black">mpeg3</h1>
+        <h1 className="text-3xl bg-gradient-to-b from-green-300 to-green-700 inline-block text-transparent bg-clip-text font-black select-none">mpeg3</h1>
       </div>
-      <div className="grid gap-2 grid-cols-3 sm:grid-cols-5 md:grid-cols-7 px-4 sm:px-16">
+      <h1 className="text-xl font-bold border-b pb-1 mb-4 border-stone-600">Music</h1>
+      <div className="grid gap-2 grid-cols-3 sm:grid-cols-5 md:grid-cols-7">
         {data?.map((music) => (
           <MusicCard
             key={music.id}
@@ -21,6 +23,17 @@ export default async function Home() {
             id={music.id}
           />
         ))}
+      </div>
+      <div className="mt-10">
+        <h1 className="text-xl font-bold border-b pb-1 mb-4 border-stone-600">Radio</h1>
+
+        <div>
+        <RadioCard
+            poster="https://static.mytuner.mobi/media/tvos_radios/cVVcTMJBcm.png"
+            name="Radio Mirchi"
+            url="mirchi"
+          />
+        </div>
       </div>
     </main>
   );

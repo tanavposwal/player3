@@ -73,7 +73,7 @@ export default function Player({ link, poster, author, name }: { link: string, p
   return (
     <div className="w-full min-h-screen flex flex-col select-none">
       {/* image */}
-      <div className="w-screen flex flex-col items-center justify-center my-20">
+      <div className="w-screen flex flex-col items-center justify-center my-28">
         <div className="flex relative">
         <img
           src={poster}
@@ -143,7 +143,7 @@ export default function Player({ link, poster, author, name }: { link: string, p
         )}
       </div>
       
-      <audio ref={audioRef} onLoadedData={handleCanPlayThrough}>
+      <audio ref={audioRef} onLoadedData={handleCanPlayThrough} autoPlay title={name}>
         <source src={link} type="audio/mpeg" />
       </audio>
     </div>
