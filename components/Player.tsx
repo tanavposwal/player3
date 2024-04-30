@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaPlay, FaPause, FaArrowsRotate, FaArrowRightFromBracket } from "react-icons/fa6";
 import { ImSpinner5 } from "react-icons/im";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Player({ link, poster, author, name }: { link: string, poster: string, author: string, name: string }) {
 
@@ -76,12 +75,12 @@ export default function Player({ link, poster, author, name }: { link: string, p
       {/* image */}
       <div className="w-screen flex flex-col items-center justify-center my-20">
         <div className="flex relative">
-        <Image
+        <img
           src={poster}
           alt={name+" poster"}
           className={"w-72 h-72 absolute transition blur-3xl "+(isPlaying && "animate-pulse")}
         />
-        <Image
+        <img
           src={poster}
           alt={name+" poster"}
           className="w-72 h-72 rounded-lg z-10"
