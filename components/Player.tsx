@@ -10,7 +10,7 @@ export default function Player({ link, poster, author, name }: { link: string, p
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -25,6 +25,10 @@ export default function Player({ link, poster, author, name }: { link: string, p
         setTotalDuration(audioRef.current.duration);
       }
     };
+
+    setTimeout(() => {
+      setIsReady(true)
+    }, 250)
 
     if (audioRef.current) {
       updateDuration()
@@ -52,10 +56,6 @@ export default function Player({ link, poster, author, name }: { link: string, p
     }
   };
 
-  const handleCanPlayThrough = () => {
-    setIsReady(true);
-  };
-
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(e.target.value);
     if (audioRef.current) {
@@ -73,7 +73,7 @@ export default function Player({ link, poster, author, name }: { link: string, p
   return (
     <div className="w-full min-h-screen flex flex-col select-none">
       {/* image */}
-      <div className="w-screen flex flex-col items-center justify-center my-28">
+      <div className="w-screen flex flex-col items-center justify-center mt-28 mb-20">
         <div className="flex relative">
         <img
           src={poster}
@@ -143,7 +143,7 @@ export default function Player({ link, poster, author, name }: { link: string, p
         )}
       </div>
       
-      <audio ref={audioRef} onLoadedData={handleCanPlayThrough} autoPlay title={name}>
+      <audio ref={audioRef} title={name}>
         <source src={link} type="audio/mpeg" />
       </audio>
     </div>
